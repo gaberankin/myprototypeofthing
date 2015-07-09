@@ -12,7 +12,8 @@ module.exports = function(grunt) {
 						fs.writeSync(fd, 'var Models = {};\n');
 						fs.writeSync(fd, '(function(){\n');
 						fs.writeSync(fd, '\n' +
-										'	var parseXml;' +
+										'	//following code from http://stackoverflow.com/questions/3054108/how-to-convert-string-to-xml-object-in-javascript\n' +	//credit where credit is due
+										'	var parseXml;\n' +
 										'	if (window.DOMParser) {\n' +
 										'		parseXml = function(xmlStr) {\n' +
 										'			return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");\n' +
@@ -38,7 +39,7 @@ module.exports = function(grunt) {
 												replace('models/', '').
 												replace(/\.dae$/, '').
 												replace(/[\[\]]/g, '_');
-								fs.writeSync(fd, 'Models["' + modelIdx + '"] = parseXml(' + JSON.stringify(fileContents) + ');\n');
+								fs.writeSync(fd, '	Models["' + modelIdx + '"] = parseXml(' + JSON.stringify(fileContents) + ');\n');
 							} catch(e) {
 								console.error(filename + ":", e);
 							}
