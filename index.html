@@ -3,7 +3,7 @@
 	<head>
 		<script type="text/javascript" src="bower_components/threejs/build/three.js"></script>
 		<script type="text/javascript" src="bower_components/threejs/examples/js/loaders/ColladaLoader.js"></script>
-		<script type="text/javascript" src="ver1.dae.js"></script>
+		<script type="text/javascript" src="dist/models.js"></script>
 	</head>
 	<body>
 
@@ -18,7 +18,7 @@
 
 			var loader = new THREE.ColladaLoader();
 			loader.options.convertUpAxis = true;
-			loader.parse( mechCollada, function ( collada ) {
+			loader.parse( Models['ver1'], function ( collada ) {
 
 				dae = collada.scene;
 
