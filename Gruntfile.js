@@ -3,31 +3,14 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		'file-creator': {
 			'models': {
-				"dist/models.js" : function(fs, fd, done) {
+				"src/res/generated/models.js" : function(fs, fd, done) {
 
 					var glob = grunt.file.glob;
 					var _ = grunt.util._;
 					glob('models/*.dae', function (err, files) {
 						fs.writeSync(fd, '// this file is auto-generated.  DO NOT MODIFY\n');
 						fs.writeSync(fd, 'var Models = {};\n');
-						fs.writeSync(fd, '(function(){\n');
-						fs.writeSync(fd, '\n' +
-										'	//following code from http://stackoverflow.com/questions/3054108/how-to-convert-string-to-xml-object-in-javascript\n' +	//credit where credit is due
-										'	var parseXml;\n' +
-										'	if (window.DOMParser) {\n' +
-										'		parseXml = function(xmlStr) {\n' +
-										'			return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");\n' +
-										'		};\n' +
-										'	} else if (typeof window.ActiveXObject != "undefined" && new window.ActiveXObject("Microsoft.XMLDOM")) {\n' +
-										'		parseXml = function(xmlStr) {\n' +
-										'			var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");\n' +
-										'			xmlDoc.async = "false";\n' +
-										'			xmlDoc.loadXML(xmlStr);\n' +
-										'			return xmlDoc;\n' +
-										'		};\n' +
-										'	} else {\n' +
-										'		parseXml = function() { return null; }\n' +
-										'	}\n');
+
 						_.each(files, function(filename) {
 							try {
 								//grab the contents of the collada files
@@ -39,12 +22,15 @@ module.exports = function(grunt) {
 												replace('models/', '').
 												replace(/\.dae$/, '').
 												replace(/[\[\]]/g, '_');
-								fs.writeSync(fd, '	Models["' + modelIdx + '"] = parseXml(' + JSON.stringify(fileContents) + ');\n');
+								fs.writeSync(fd, 'Models["' + modelIdx + '"] = ' + JSON.stringify(fileContents) + ';\n');
 							} catch(e) {
 								console.error(filename + ":", e);
 							}
 						});
-						fs.writeSync(fd, '})();\n');
+						fs.writeSync(fd, '\nmodule.exports = function(modelName) {\n' +
+										'	if(typeof Models[modelName] === "undefined") return "";\n' +
+										'	return Models[modelName];\n' +
+										'};\n');
 
 						done();
 					});
