@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 								var fileContents = fs.readFileSync(filename, {encoding: 'utf-8'});
 
 								//clean the files up some by removing leading tabs and unnecessary line breaks
-								fileContents = fileContents.replace(/>\n[ \t]+</g, '><');
+								fileContents = fileContents.replace(/>[ \r\n\t]+</g, '><');
 								var modelIdx = filename.
 												replace('models/', '').
 												replace(/\.dae$/, '').

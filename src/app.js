@@ -10,7 +10,7 @@ function begin() {
 	var loader = new THREE.ColladaLoader();
 
 	loader.options.convertUpAxis = true;
-	loader.parse( ModelLoader.get('ver1'), function ( collada ) {
+	loader.parse( ModelLoader.get('ver2'), function ( collada ) {
 
 		dae = collada.scene;
 
