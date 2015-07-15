@@ -1,5 +1,6 @@
 var ModelLoader = require('./loader');
 var m = require('file!../models/ver2.dae');
+var BundleLoader = require('./bundle-loader');
 var THREED = require("bundle?path=dist!../bower_components/threejs/build/three.min.js");
 var THREEDCOLLADA = require("bundle?path=dist!../bower_components/threejs/examples/js/loaders/ColladaLoader.js");
 
@@ -141,17 +142,10 @@ function render() {
 }
 
 window.addEventListener('load', function(){
-	console.log("Please wait while threejs is loaded...");
-	console.time('threejs-load');
-	THREED(function(file){
-		console.timeEnd('threejs-load');
-		console.log("loaded", file);
-		console.log("Please wait while threejs.colladaloader is loaded...");
-		console.time('threejs.colladaloader-load');
-		THREEDCOLLADA(function(file){
-			console.timeEnd('threejs.colladaloader-load');
-			console.log("loaded", file);
-			begin();
-		});
+	var bLoader = new BundleLoader();
+	bLoader.add(THREED);
+	bLoader.add(THREEDCOLLADA);
+	bLoader.load(function(){
+		begin();
 	});
 });
