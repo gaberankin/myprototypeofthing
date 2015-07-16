@@ -1,4 +1,5 @@
 var ModelLoader = require('./loader');
+var Settings = require('./settings');
 var m = require('file!../models/ver2.dae');
 var BundleLoader = require('./bundle-loader');
 var THREED = require("bundle?path=dist!../bower_components/threejs/build/three.min.js");
@@ -99,6 +100,14 @@ function init() {
 	//
 
 	window.addEventListener( 'resize', onWindowResize, false );
+
+
+	Settings({
+		container: document.body,
+		camera: camera,
+		scene: scene,
+		lights: [pointLight, directionalLight]
+	});
 
 }
 
