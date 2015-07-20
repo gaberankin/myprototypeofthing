@@ -26,3 +26,11 @@ src/res/generated
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 bower_components
+
+# for gh-pages
+models
+src
+bower.js
+Gruntfile.js
+package.json
+webpack.config.js
