@@ -13,7 +13,7 @@ if (window.DOMParser) {
 		return xmlDoc;
 	};
 } else {
-	parseXml = function() { return null; }
+	parseXml = function() { return null; };
 }
 
 

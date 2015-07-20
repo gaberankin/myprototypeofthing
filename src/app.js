@@ -63,7 +63,7 @@ function init() {
 	// directionalLight.position.z = Math.random() - 0.5;
 	// directionalLight.position.normalize();
 	var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-	directionalLight.position.set( 0, 1, .25 );
+	directionalLight.position.set( 0, 1, 0.25 );
 	scene.add( directionalLight );
 
 
@@ -124,7 +124,7 @@ function render() {
 
 	THREE.AnimationHandler.update( clock.getDelta() );
 
-	player.update(clock.getDelta())
+	player.update(clock.getDelta());
 
 	renderer.render( scene, camera );
 

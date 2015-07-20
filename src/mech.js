@@ -1,5 +1,5 @@
 var SubObj = require('./subobj'),
-	mechmodel = require('file!../models/ver2.dae'),
+	mechmodel = require('file?name=../resources/models/[hash].[ext]!../models/ver2.dae'),
 	THREEDCOLLADA = require("bundle?lazy&path=dist!../bower_components/threejs/examples/js/loaders/ColladaLoader.js");
 
 var KEY_W = 87,
@@ -40,7 +40,7 @@ var setupListeners = function(mech){
 		if(e.which == KEY_S)
 			mech.modifiers.base.backwardMovement = false;
 	});
-}
+};
 
 var Mech = function(onload){
 	this.dae = null;
@@ -54,17 +54,17 @@ var Mech = function(onload){
 		base: {
 			rotationCC: false,	//counter clockwise, +
 			rotationC: false,	//clockwise, -
-			forwardMovement: false, 
+			forwardMovement: false,
 			backwardMovement: false
 		}
-	}
+	};
 
 	this.stats = {
 		rotationDegreesPerSecond: 72 * 2,
 		movementSpeed: 10
-	}
+	};
 
-}
+};
 
 Mech.prototype.load = function(onload, onProgress){
 	var me = this;
@@ -86,7 +86,7 @@ Mech.prototype.load = function(onload, onProgress){
 				var animation = new THREE.Animation( child, child.geometry.animation );
 				animation.play();
 
-			} 
+			}
 			switch(child.name){
 				case 'body': me.body.setObj(child); break;
 				case 'cannon-right': me.armRight.setObj(child); break;
@@ -105,7 +105,7 @@ Mech.prototype.load = function(onload, onProgress){
 			onload();
 		}
 
-	}]
+	}];
 
 	if(onProgress) {
 		args.push(onProgress);
@@ -115,7 +115,7 @@ Mech.prototype.load = function(onload, onProgress){
 	loader.options.convertUpAxis = true;
 	loader.load.apply(loader, args);
 
-}
+};
 
 Mech.prototype.update = function(time){
 	if((rotSpeed = this.currentRotationSpeed()) !== 0)
@@ -125,7 +125,7 @@ Mech.prototype.update = function(time){
 	if(this.testAnim) {
 		console.log(time, this.dae.rotation, THREE.Math.radToDeg(this.dae.rotation.y), this.modifiers);
 	}
-}
+};
 
 Mech.prototype.currentRotationSpeed = function(){
 	if (this.modifiers.base.rotationCC && !this.modifiers.base.rotationC) {
@@ -135,7 +135,7 @@ Mech.prototype.currentRotationSpeed = function(){
 	} else {
 		return 0;
 	}
-}
+};
 
 Mech.prototype.currentMovementSpeed = function(){
 	if (this.modifiers.base.forwardMovement && !this.modifiers.base.backwardMovement) {
@@ -145,5 +145,5 @@ Mech.prototype.currentMovementSpeed = function(){
 	} else {
 		return 0;
 	}
-}
+};
 module.exports = Mech;
