@@ -14,5 +14,11 @@ module.exports = {
 		new webpack.ResolverPlugin(
 			new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
 		)
-	]
+	],
+    devServer: {
+        contentBase: "./",
+        noInfo: true, //  --no-info option
+        hot: true,
+        inline: true
+    }
 }
