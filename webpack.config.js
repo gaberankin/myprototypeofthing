@@ -5,6 +5,7 @@ module.exports = {
 	entry: "./src/app",
 	output: {
 		path: __dirname + "/dist",
+		publicPath: 'dist/',
 		filename: "main.js"
 	},
 	resolve: {
@@ -18,7 +19,7 @@ module.exports = {
     devServer: {
         contentBase: "./",
         noInfo: true, //  --no-info option
-        hot: true,
+        hot: false,
         inline: true
     }
 }

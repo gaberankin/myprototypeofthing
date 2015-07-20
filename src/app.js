@@ -1,4 +1,6 @@
 var Mech = require('./mech');
+var Settings = require('./settings');
+var THREED = require("bundle?path=dist!../bower_components/threejs/build/three.min.js");
 
 var container, camera, scene, renderer, objects;
 var particleLight, player;
@@ -12,34 +14,6 @@ function begin() {
 		init();
 		animate();
 	});
-
-	// var loader = new THREE.ColladaLoader();
-
-	// loader.options.convertUpAxis = true;
-	// loader.parse( ModelLoader.get('ver2'), function ( collada ) {
-
-	// 	dae = collada.scene;
-
-	// 	dae.traverse( function ( child ) {
-
-	// 		if ( child instanceof THREE.SkinnedMesh ) {
-
-	// 			var animation = new THREE.Animation( child, child.geometry.animation );
-	// 			animation.play();
-
-	// 		} else {
-	// 			console.log(child);
-	// 		}
-
-	// 	} );
-
-	// 	//dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
-	// 	dae.updateMatrix();
-
-	// 	init();
-	// 	animate();
-
-	// }, './' );
 }
 
 function init() {
@@ -76,8 +50,6 @@ function init() {
 	var line = new THREE.Line( geometry, material, THREE.LinePieces );
 	scene.add( line );
 
-	particleLight = new THREE.Mesh( new THREE.SphereGeometry( 4, 8, 8 ), new THREE.MeshBasicMaterial( { color: 0xffffff } ) );
-	// scene.add( particleLight );
 
 	// Lights
 
@@ -92,8 +64,6 @@ function init() {
 	directionalLight.position.set( 0, 1, .25 );
 	scene.add( directionalLight );
 
-	var pointLight = new THREE.PointLight( 0xffffff, 4 );
-	particleLight.add( pointLight );
 
 	var light = new THREE.AmbientLight( 0xCCCCCC );
 	scene.add(light);
@@ -106,6 +76,14 @@ function init() {
 	//
 
 	window.addEventListener( 'resize', onWindowResize, false );
+
+
+	Settings({
+		container: document.body,
+		camera: camera,
+		scene: scene,
+		lights: [directionalLight]
+	});
 
 }
 
@@ -150,4 +128,8 @@ function render() {
 
 }
 
-window.addEventListener('load', begin);
+window.addEventListener('load', function(){
+	THREED(function(){
+		begin();
+	});
+});
