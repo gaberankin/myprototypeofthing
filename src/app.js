@@ -1,9 +1,11 @@
 var Mech = require('./mech');
 var Settings = require('./settings');
-var THREED = require("bundle?path=dist!../bower_components/threejs/build/three.min.js");
+var THREED = require("bundle?lazy&path=dist!../bower_components/threejs/build/three.min.js");
 
 var container, camera, scene, renderer, objects;
 var particleLight, player, clock;
+
+window.THREE = null;
 
 function begin() {
 
@@ -129,7 +131,8 @@ function render() {
 }
 
 window.addEventListener('load', function(){
-	THREED(function(){
+	THREED(function(T){
+		THREE = T;
 		begin();
 	});
 });

@@ -1,6 +1,6 @@
 var SubObj = require('./subobj'),
-	mechmodel = require('file!../models/ver2.dae');
-	THREEDCOLLADA = require("bundle?path=dist!../bower_components/threejs/examples/js/loaders/ColladaLoader.js");
+	mechmodel = require('file!../models/ver2.dae'),
+	THREEDCOLLADA = require("bundle?lazy&path=dist!../bower_components/threejs/examples/js/loaders/ColladaLoader.js");
 
 var KEY_W = 87,
 	KEY_A = 65,
@@ -71,7 +71,8 @@ Mech.prototype.load = function(onload, onProgress){
 	if(!THREE.ColladaLoader) {
 		THREEDCOLLADA(function(){
 			me.load(onload);
-		})
+		});
+		return;
 	}
 
 	var args = [mechmodel, function ( collada ) {
