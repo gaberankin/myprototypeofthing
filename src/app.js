@@ -3,9 +3,7 @@ var Settings = require('./settings');
 var THREED = require("bundle?path=dist!../bower_components/threejs/build/three.min.js");
 
 var container, camera, scene, renderer, objects;
-var particleLight, player;
-
-var clock = new THREE.Clock();
+var particleLight, player, clock;
 
 function begin() {
 
@@ -17,6 +15,8 @@ function begin() {
 }
 
 function init() {
+
+	clock = new THREE.Clock();
 
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
