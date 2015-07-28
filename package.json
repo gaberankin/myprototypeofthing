@@ -16,6 +16,9 @@
     "url": "https://github.com/gaberankin/myprototypeofthing/issues"
   },
   "homepage": "https://github.com/gaberankin/myprototypeofthing",
+  "dependencies": {
+    "random-seed": "^0.2.0"
+  },
   "devDependencies": {
     "bundle-loader": "^0.5.4",
     "file-loader": "^0.8.4",
